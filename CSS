@@ -1,0 +1,298 @@
+:root {
+    --card-width: 300px;
+    --card-height: 450px;
+    --background-color: #0a0a1a;
+    --ghost-glow-color: #ff00ff;
+    --number-color: #ffffff;
+    --card-border-color: rgba(255, 0, 255, 0.4);
+    --card-shadow-color: rgba(255, 0, 255, 0.5);
+    --card-transition-duration: 0.5s;
+    --ghost-skull-url: url("card-front.png");
+    --card-back-url: url("card-back.png");
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: var(--background-color);
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+#particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.card-container {
+    width: var(--card-width);
+    height: var(--card-height);
+    perspective: 1000px;
+    position: relative;
+    z-index: 2;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform var(--card-transition-duration) ease-out;
+    border-radius: 20px;
+    box-shadow: 0 0 30px var(--card-shadow-color);
+    border: 2px solid var(--card-border-color);
+    background: rgba(255, 255, 255, 0.05);
+
+    /* Neon Border */
+    border: 3px solid transparent;
+    background-image: linear-gradient(var(--background-color), var(--background-color)),
+                      linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    animation: borderGlow 3s linear infinite;
+}
+
+.card.flipped {
+    transform: rotateY(180deg) !important;
+}
+
+.card-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+}
+
+.front {
+    background: rgba(20, 20, 20, 0.9);
+}
+
+.ghost-skull-container {
+    position: relative;
+    width: 80%;
+    height: 80%;
+}
+
+.ghost-image {
+    width: 100%;
+    height: 100%;
+    background-image: var(--ghost-skull-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: drop-shadow(0 0 15px var(--ghost-glow-color));
+    transition: filter var(--card-transition-duration) ease;
+}
+
+.number {
+    position: absolute;
+    font-size: 1.5rem; /* Adjust as needed */
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 5px rgba(255, 0, 255, 0.7);
+}
+
+/* Existing top-right position */
+.number.top-right {
+    top: 10px;
+    right: 10px;
+}
+
+/* New bottom-left position */
+.number.bottom-left {
+    bottom: 10px;
+    left: 10px;
+}
+
+
+/* Top-right number aligned perfectly */
+/* REPLACE your current .number.top-right block with this one */
+.number.top-right {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    left: auto;                /* reset the base .number left */
+    bottom: auto;              /* ensure it stays at the top */
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ff00ff;
+    transform: scaleX(-1);     /* mirror horizontally */
+    text-shadow:
+        0 0 5px #ff00ff,
+        0 0 10px #ff00ff,
+        0 0 15px #ff33ff,
+        0 0 25px #00ffff;
+    z-index: 5;
+    background: none;
+    border: none;
+    width: auto;
+    height: auto;
+    display: inline;
+}
+
+/* ADD this new block */
+.number.bottom-right {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    left: auto;                /* reset the base .number left */
+    top: auto;                 /* ensure it stays at the bottom */
+    font-size: 2.2rem;         /* tweak as you like */
+    font-weight: bold;
+    color: var(--number-color);
+    text-shadow:
+        0 0 6px #ff00ff,
+        0 0 14px #00ffff;
+    line-height: 1;
+    z-index: 5;
+}
+
+
+.back {
+    transform: rotateY(180deg);
+    background: rgba(20, 20, 20, 0.9);
+}
+
+.card-back-image {
+    width: 80%;
+    height: 80%;
+    background-image: var(--card-back-url);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: drop-shadow(0 0 15px var(--ghost-glow-color));
+}
+
+@keyframes borderGlow {
+    0% { background-image: linear-gradient(var(--background-color), var(--background-color)),
+                           linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff); }
+    50% { background-image: linear-gradient(var(--background-color), var(--background-color)),
+                            linear-gradient(45deg, #00ffff, #ff00ff, #00ffff); }
+    100% { background-image: linear-gradient(var(--background-color), var(--background-color)),
+                             linear-gradient(45deg, #ff00ff, #00ffff, #ff00ff); }
+}
+
+.card__details {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.2));
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+/* Glow Corners */
+.corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff00ff;
+    filter: drop-shadow(0 0 4px #ff00ff);
+}
+.corner-tl { top: 8px; left: 8px; border-right: none; border-bottom: none; }
+.corner-tr { top: 8px; right: 8px; border-left: none; border-bottom: none; }
+.corner-bl { bottom: 8px; left: 8px; border-right: none; border-top: none; }
+.corner-br { bottom: 8px; right: 8px; border-left: none; border-top: none; }
+
+/* Scan-line animation */
+.scan-lines {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.05) 0px,
+        rgba(255,255,255,0.05) 1px,
+        transparent 1px,
+        transparent 3px
+    );
+    animation: scanMove 6s linear infinite;
+}
+@keyframes scanMove {
+    0% { background-position-y: 0; }
+    100% { background-position-y: 100%; }
+}
+
+/* Circuit background */
+.circuit {
+    position: absolute;
+    inset: 0;
+    background: url('circuit-pattern.png');
+    opacity: 0.07;
+    mix-blend-mode: screen;
+}
+
+.card-number {
+    font-size: 2rem;
+    color: #ff00ff;
+    text-shadow: 0 0 8px #ff00ff, 0 0 15px #00ffff;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 8px;
+    right: 8px;
+    bottom: 8px;
+    border: 1px solid rgba(255, 0, 255, 0.8);
+    border-radius: 15px;
+    background: linear-gradient(45deg, rgba(255,0,255,0.05), rgba(0,255,255,0.05));
+    box-shadow: 
+        0 0 10px #ff00ff,
+        0 0 20px #ff00ff,
+        inset 0 0 10px #00ffff,
+        inset 0 0 20px #ff00ff;
+    pointer-events: none;
+}
+
+.pattern-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+        repeating-radial-gradient(circle, rgba(255, 0, 255, 0.08) 0px, transparent 2px),
+        repeating-linear-gradient(45deg, rgba(0, 255, 255, 0.05) 0px, transparent 2px);
+    background-size: 50px 50px, 30px 30px;
+    animation: pattern-move 8s linear infinite;
+    z-index: 0;
+    filter: blur(1px);
+}
+.ghost-image {
+    position: relative;
+    z-index: 1;
+}
+@keyframes pattern-move {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 100px 100px, 60px 60px; }
+}
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 0.4; }
+    100% { transform: scale(1.1); opacity: 0.7; }
+}
+
+.card .corner {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff00ff;
+    filter: drop-shadow(0 0 5px #ff00ff);
+}
+.corner.tl { top: 8px; left: 8px; border-right: none; border-bottom: none; }
+.corner.tr { top: 8px; right: 8px; border-left: none; border-bottom: none; }
+.corner.bl { bottom: 8px; left: 8px; border-right: none; border-top: none; }
+.corner.br { bottom: 8px; right: 8px; border-left: none; border-top: none; }
