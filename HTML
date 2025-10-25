@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost Card with Particles</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card-container">
+        <div class="card">
+            <!-- FRONT FACE -->
+            <div class="card-face front">
+                <!-- Top-right mirr ored number -->
+                <div class="number top-right">13</div>
+
+                <div class="ghost-skull-container">
+                    <div class="pattern-bg"></div>
+                    <!-- Corners -->
+                    <div class="corner corner-tl"></div>
+                    <div class="corner corner-tr"></div>
+                    <div class="corner corner-bl"></div>
+                    <div class="corner corner-br"></div>
+
+                    <!-- Scan line effect -->
+                    <div class="scan-lines"></div>
+
+                    <!-- Optional circuit background -->
+                    <div class="circuit"></div>
+
+                    <!-- Skull image -->
+                    <div class="ghost-image"></div>
+                </div>
+
+                <!-- Bottom-left number -->
+                <div class="number bottom-left">13</div>
+            </div>
+
+            <!-- BACK FACE -->
+            <div class="card-face back">
+                <!-- Top-right mirrored number -->
+                <div class="number top-right">13</div>
+
+                <div class="card-back-image"></div>
+
+                <!-- Bottom-left number -->
+                <div class="number bottom-left">13</div>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="particles"></canvas>
+    <script src="script.js"></script>
+</body>
+</html>
+HTML
